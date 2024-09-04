@@ -23,13 +23,15 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
     private String apellido;
     private String dni;
     private LocalDate fechaAlta;
 
-    //estoy mapeando la relación para que 1 paciente tenga 1 solo domicilio
+    // Relación con Domicilio
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
     @OneToMany(mappedBy = "paciente")
