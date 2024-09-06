@@ -1,11 +1,12 @@
 package com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.impl;
 
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.entity.Odontologo;
-
+import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.exception.ResourceNotFoundException;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.repository.IOdontologoRepository;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.IOdontologoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,6 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
     @Autowired
     private IOdontologoRepository iOdontologoRepository;
 
-
     @Override
     public Odontologo guardar(Odontologo odontologo) {
         return iOdontologoRepository.save(odontologo);
@@ -22,24 +22,23 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo buscarPorId(Long id) {
-        //va a buscar al odontologo y lo va a guardar en odontologoBuscado
-        //o va a guardar un null en el odontologoBuscado
-        Optional<Odontologo> odontologoBuscado = iOdontologoRepository.findById(id);
-        if (odontologoBuscado.isPresent()) {
-            return odontologoBuscado.get();
-        } else {
-            return null;
-        }
+        return iOdontologoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Odontólogo no encontrado con id: " + id));
     }
-
 
     @Override
     public void eliminar(Long id) {
+        if (!iOdontologoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + id);
+        }
         iOdontologoRepository.deleteById(id);
     }
 
     @Override
     public void actualizar(Odontologo odontologo) {
+        if (!iOdontologoRepository.existsById(odontologo.getId())) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + odontologo.getId());
+        }
         iOdontologoRepository.save(odontologo);
     }
 
@@ -50,8 +49,10 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo buscarPorMatricula(String matricula) {
-        return iOdontologoRepository.findByMatricula(matricula);
+        Odontologo odontologo = iOdontologoRepository.findByMatricula(matricula);
+        if (odontologo == null) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado con matrícula: " + matricula);
+        }
+        return odontologo;
     }
-
-
 }
