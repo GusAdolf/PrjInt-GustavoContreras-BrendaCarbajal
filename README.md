@@ -11,10 +11,10 @@ Este repositorio contiene el código y documentación correspondiente al examen 
 
 ### Materia:
 - **Backend 1**
-### Epecificaciones Funcionales:
+### Especificaciones Funcionales:
 - **JDK 21**
-- **El backend se levante en el puerto 8081**
-- **Si se usa Live Server para el front se lenvante en el 63342 caso contrario en el 8081 igual que el backend**
+- **El backend se levanta en el puerto 8081**
+- **Si se usa Live Server para el front se levanta en el 63342 caso contrario en el 8081 igual que el backend**
 ---
 ### INICIO
 ![image](https://github.com/user-attachments/assets/991929af-3a7f-483f-803d-6699507f6b7a)
