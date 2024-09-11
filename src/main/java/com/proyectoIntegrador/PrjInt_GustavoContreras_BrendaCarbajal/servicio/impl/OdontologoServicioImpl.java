@@ -36,8 +36,8 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public void actualizar(Odontologo odontologo) {
-        if (!iOdontologoRepository.existsById(odontologo.getId())) {
-            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + odontologo.getId());
+        if (!iOdontologoRepository.existsById(odontologo.getMatricula())) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + odontologo.getMatricula());
         }
         iOdontologoRepository.save(odontologo);
     }
@@ -48,7 +48,7 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
     }
 
     @Override
-    public Odontologo buscarPorMatricula(String matricula) {
+    public Odontologo buscarPorMatricula(Long matricula) {
         Odontologo odontologo = iOdontologoRepository.findByMatricula(matricula);
         if (odontologo == null) {
             throw new ResourceNotFoundException("Odontólogo no encontrado con matrícula: " + matricula);

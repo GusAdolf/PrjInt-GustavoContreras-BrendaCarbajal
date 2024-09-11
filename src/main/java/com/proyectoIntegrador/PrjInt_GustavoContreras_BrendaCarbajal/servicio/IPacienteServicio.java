@@ -12,4 +12,6 @@ public interface IPacienteServicio {
     List<Paciente> listarTodos();
     void actualizar(Paciente paciente);
     void eliminar(Long id);
+
+    Paciente buscarPorDni(String dni);
 }

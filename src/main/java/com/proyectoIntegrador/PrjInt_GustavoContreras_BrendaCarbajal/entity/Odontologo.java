@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "odontologos")
+@Table(name = "odontologo")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Odontologo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
     private String nombre;
     private String apellido;
-    private String matricula;
+
+    @Id
+    private Long  matricula;
 }

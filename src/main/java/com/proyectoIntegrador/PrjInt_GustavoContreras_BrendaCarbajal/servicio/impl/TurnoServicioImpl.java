@@ -35,9 +35,9 @@ public class TurnoServicioImpl implements ITurnoServicio {
         }
 
         // Validar que el odontólogo existe
-        Odontologo odontologo = odontologoServicio.buscarPorId(turno.getOdontologo().getId());
+        Odontologo odontologo = odontologoServicio.buscarPorId(turno.getOdontologo().getMatricula());
         if (odontologo == null) {
-            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + turno.getOdontologo().getId());
+            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + turno.getOdontologo().getMatricula());
         }
 
         // Asignar las entidades completas al turno

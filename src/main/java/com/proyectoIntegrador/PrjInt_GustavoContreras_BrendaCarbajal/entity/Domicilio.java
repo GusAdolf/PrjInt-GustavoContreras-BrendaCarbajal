@@ -23,7 +23,7 @@ public class Domicilio {
     private String provincia;
 
     // Relación inversa con Paciente (opcional para evitar recursividad en JSON)
-    @OneToOne(mappedBy = "domicilio")
+    /*@OneToOne(mappedBy = "domicilio")
     @JsonIgnore
-    private Paciente paciente;
+    private Paciente paciente;*/
 }

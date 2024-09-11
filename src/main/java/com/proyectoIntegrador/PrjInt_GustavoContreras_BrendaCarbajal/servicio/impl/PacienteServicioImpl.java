@@ -1,5 +1,6 @@
 package com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.impl;
 
+import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.entity.Odontologo;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.entity.Paciente;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.exception.ResourceNotFoundException;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.repository.IPacienteRepository;
@@ -45,5 +46,15 @@ public class PacienteServicioImpl implements IPacienteServicio {
             throw new ResourceNotFoundException("Paciente no encontrado con id: " + id);
         }
         iPacienteRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Paciente buscarPorDni(String dni) {
+        Paciente paciente = iPacienteRepository.findByDni(dni);
+        if (paciente == null) {
+            throw new ResourceNotFoundException("Paciente no encontrado con DNI: " + dni);
+        }
+        return paciente;
     }
 }

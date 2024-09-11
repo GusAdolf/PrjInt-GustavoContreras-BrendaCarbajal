@@ -13,5 +13,5 @@ public interface IOdontologoServicio {
 
     List<Odontologo> listarTodos();
 
-    Odontologo buscarPorMatricula(String matricula);
+    Odontologo buscarPorMatricula(Long matricula);
 }

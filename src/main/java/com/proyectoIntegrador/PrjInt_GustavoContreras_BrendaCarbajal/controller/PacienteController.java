@@ -1,5 +1,6 @@
 package com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.controller;
 
+import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.entity.Odontologo;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.entity.Paciente;
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.IPacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ public class PacienteController {
     @Autowired
     private IPacienteServicio iPacienteServicio;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/search/{id}")
     public ResponseEntity<Paciente> consultarPorId(@PathVariable Long id) {
         Paciente paciente = iPacienteServicio.buscarPorId(id);
         return ResponseEntity.ok(paciente);
     }
 
-    @PostMapping
+    @PostMapping(value = "/save")
     public ResponseEntity<Paciente> guardar(@RequestBody Paciente paciente) {
         return ResponseEntity.status(201).body(iPacienteServicio.guardar(paciente));
     }
@@ -32,7 +33,7 @@ public class PacienteController {
         return ResponseEntity.ok(iPacienteServicio.listarTodos());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Paciente> actualizar(@PathVariable Long id, @RequestBody Paciente paciente) {
         Paciente pacienteExistente = iPacienteServicio.buscarPorId(id);
         if (pacienteExistente != null) {
@@ -48,9 +49,16 @@ public class PacienteController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         iPacienteServicio.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Obtener odontólogo por matrícula
+    @GetMapping("/searchbyndi/{dni}")
+    public ResponseEntity<Paciente> buscarPorDni(@PathVariable String dni) {
+        Paciente paciente = iPacienteServicio.buscarPorDni(dni);
+        return ResponseEntity.ok(paciente);
     }
 }

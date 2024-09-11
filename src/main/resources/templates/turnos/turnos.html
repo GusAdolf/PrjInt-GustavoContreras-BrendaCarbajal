@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Centro Odontológico - Registrar Turno</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (for social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/turnos.css">
+</head>
+<body>
+<div class="container-fluid d-flex flex-column vh-100">
+     <!-- Main content -->
+    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <div class="turno-form w-50">
+            <form action="/guardar-turno" method="post">
+                <!-- Selección de Odontólogo -->
+                <div class="form-group">
+                    <label for="odontologo">Seleccionar Odontólogo</label>
+                    <select class="form-control" id="odontologo" name="odontologo" required>
+                        <option value="">Seleccione un Odontólogo</option>
+                        <option value="1">Dr. Juan Pérez</option>
+                        <option value="2">Dr. María López</option>
+                        <option value="3">Dr. Luis García</option>
+                    </select>
+                </div>
+
+                <!-- Selección de Paciente -->
+                <div class="form-group">
+                    <label for="paciente">Seleccionar Paciente</label>
+                    <select class="form-control" id="paciente" name="paciente" required>
+                        <option value="">Seleccione un Paciente</option>
+                        <option value="1">Ana Rodríguez</option>
+                        <option value="2">Carlos Ramírez</option>
+                        <option value="3">Lucía González</option>
+                    </select>
+                </div>
+
+                <!-- Fecha del Turno -->
+                <div class="form-group">
+                    <label for="fechaTurno">Seleccionar Fecha</label>
+                    <input type="date" class="form-control" id="fechaTurno" name="fechaTurno" required>
+                </div>
+
+                <!-- Hora del Turno -->
+                <div class="form-group">
+                    <label for="horaTurno">Seleccionar Hora</label>
+                    <input type="time" class="form-control" id="horaTurno" name="horaTurno" required>
+                </div>
+
+                <!-- Botón para registrar el turno -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-dark">Registrar Turno</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-100 text-center py-3 bg-dark">
+        <p class="text-white mb-1">Síguenos en:</p>
+        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-facebook-f fa-2x"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-twitter fa-2x"></i>
+        </a>
+    </footer>
+</div>
+
+
+</body>
+</html>

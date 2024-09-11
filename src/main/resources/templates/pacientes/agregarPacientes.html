@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Centro Odontológico - Agregar Paciente</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (for social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/agregarPacientes.css">
+
+</head>
+<body>
+<div class="container-fluid d-flex flex-column vh-100">
+    <!-- Header -->
+
+
+    <!-- Main content -->
+    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <div class="paciente-form w-50">
+            <!-- Formulario de paciente -->
+            <form id="formAgregarPaciente">
+                <!-- Nombre -->
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" class="form-control" placeholder="Escribe el nombre" required>
+                </div>
+
+                <!-- Apellido -->
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" class="form-control" placeholder="Escribe el apellido" required>
+                </div>
+
+                <!-- Domicilio -->
+                <div class="form-group">
+                    <label for="domicilio">Domicilio</label>
+                    <input type="text" id="domicilio" class="form-control" placeholder="Escribe el domicilio" required>
+                </div>
+
+                <!-- DNI -->
+                <div class="form-group">
+                    <label for="dni">DNI</label>
+                    <input type="text" id="dni" class="form-control" placeholder="Escribe el DNI" required>
+                </div>
+
+                <!-- Fecha de Alta -->
+                <div class="form-group">
+                    <label for="fechaAlta">Fecha de Alta</label>
+                    <input type="date" id="fechaAlta" class="form-control" required>
+                </div>
+
+                <!-- Botón Guardar -->
+                <div class="text-center mt-4">
+                    <button id="agregarPaciente" type="submit" class="btn btn-dark btn-lg">GUARDAR</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Modal de éxito -->
+    <div class="modal" id="modalExito">
+        <div class="modal-content">
+            <i class="fas fa-check-circle"></i> <!-- Palomita verde de éxito -->
+            <h3>¡Paciente guardado exitosamente!</h3>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-100 text-center py-3 bg-dark">
+        <p class="text-white mb-1">Síguenos en:</p>
+        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-facebook-f fa-2x"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-twitter fa-2x"></i>
+        </a>
+    </footer>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('formAgregarPaciente').addEventListener('submit', function(event) {
+           event.preventDefault();
+
+
+
+               const nombre = document.getElementById('nombre').value;
+               const apellido = document.getElementById('apellido').value;
+               const domicilio = document.getElementById('domicilio').value;
+               const dni = document.getElementById('dni').value;
+               const fechaAlta = document.getElementById('fechaAlta').value;
+
+           // Validar que todos los campos estén llenos
+           if (!nombre || !apellido || !dni) {
+               alert('Por favor, complete todos los campos.');
+               return;
+           }
+
+           // Crear el objeto odontólogo
+           const paciente = {
+                nombre: nombre,
+                apellido: apellido,
+                domicilio: domicilio,
+                dni: dni,
+                fechaAlta: fechaAlta
+
+           };
+
+           // Hacer la solicitud POST para guardar o actualizar el odontólogo
+           fetch('/pacientes/save', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(paciente) // Convertir el objeto a JSON
+           })
+           .then(response => {
+               if (response.ok) {
+                   return response.json(); // Parsear la respuesta JSON
+               } else {
+                   throw new Error('Error al guardar el paciente');
+               }
+           })
+           .then(data => {
+               alert('Paciente guardado exitosamente');
+               console.log(data);
+           })
+           .catch(error => {
+               console.error('Hubo un error:', error);
+               alert('Hubo un problema al guardar el odontólogo.');
+           });
+       });
+
+
+</script>
+</body>
+</html>

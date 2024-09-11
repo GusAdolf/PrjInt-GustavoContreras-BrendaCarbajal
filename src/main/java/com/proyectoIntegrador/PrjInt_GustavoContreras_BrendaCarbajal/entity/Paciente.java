@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "pacientes")
+@Table(name = "paciente")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,15 +28,16 @@ public class Paciente {
     private String apellido;
     private String dni;
     private LocalDate fechaAlta;
+    private String domicilio;
 
     // Relación con Domicilio
-    @OneToOne(cascade = CascadeType.ALL)
+    /*@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
     @OneToMany(mappedBy = "paciente")
     @JsonIgnore
-    private Set<Turno> turnoSet = new HashSet<>();
+    private Set<Turno> turnoSet = new HashSet<>();*/
 
 
 }

@@ -24,26 +24,26 @@ public class OdontologoController {
     }
 
     // Crear un nuevo odontólogo
-    @PostMapping
+    @PostMapping(value = "/save")
     public ResponseEntity<Odontologo> guardar(@RequestBody Odontologo odontologo) {
         return ResponseEntity.status(HttpStatus.CREATED).body(odontologoServicio.guardar(odontologo));
     }
 
     // Obtener todos los odontólogos
-    @GetMapping
+    @GetMapping(value = "/findAll")
     public ResponseEntity<List<Odontologo>> listarTodos() {
         return ResponseEntity.ok(odontologoServicio.listarTodos());
     }
 
     // Obtener odontólogo por matrícula
-    @GetMapping("/matricula/{matricula}")
-    public ResponseEntity<Odontologo> buscarPorMatricula(@PathVariable String matricula) {
+    @GetMapping("/search/{matricula}")
+    public ResponseEntity<Odontologo> buscarPorMatricula(@PathVariable Long matricula) {
         Odontologo odontologo = odontologoServicio.buscarPorMatricula(matricula);
         return ResponseEntity.ok(odontologo);
     }
 
     // Actualizar odontólogo existente
-    @PutMapping("/{id}")
+    @PutMapping("/update/{matricula}")
     public ResponseEntity<Odontologo> actualizar(@PathVariable Long id, @RequestBody Odontologo odontologo) {
         Odontologo odontologoExistente = odontologoServicio.buscarPorId(id);
 

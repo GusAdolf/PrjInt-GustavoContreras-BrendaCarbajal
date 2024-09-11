@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Centro Odontológico - Eliminar Odontólogo</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome (for social icons and trash icon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/front/css/eliminarOdontologos.css">
+  <script src="/front/js/eliminarOdontologos.js"></script>
+</head>
+<body>
+<div class="container-fluid d-flex flex-column vh-100">
+  <!-- Header -->
+  <header class="w-100 text-center py-4 bg-white">
+    <h1 class="text-dark">CENTRO ODONTOLÓGICO - Menú</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+    <div class="odontologo-form w-50">
+      <!-- Buscar Odontólogo -->
+      <div class="form-group d-flex">
+        <input type="text" class="form-control mr-2" placeholder="Buscar Odontólogo" required>
+        <button type="button" class="btn btn-dark">Buscar</button>
+      </div>
+
+      <!-- Información del Odontólogo -->
+      <form action="/eliminar-odontologo" method="post">
+        <!-- Apellido -->
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" class="form-control" placeholder="Apellido" readonly>
+        </div>
+
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" class="form-control" placeholder="Nombre" readonly>
+        </div>
+
+        <!-- Matrícula -->
+        <div class="form-group">
+          <label for="matricula">Matrícula</label>
+          <input type="text" id="matricula" class="form-control" placeholder="Matrícula" readonly>
+        </div>
+
+        <!-- Botón Eliminar con Icono de Basura -->
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-danger btn-lg">
+            <i class="fas fa-trash-alt"></i> Eliminar Odontólogo
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-100 text-center py-3 bg-dark">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+      <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+      <i class="fab fa-twitter fa-2x"></i>
+    </a>
+  </footer>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

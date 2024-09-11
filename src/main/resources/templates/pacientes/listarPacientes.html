@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Centro Odontológico - Lista de Pacientes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (for social icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/listarPacientes.css">
+
+</head>
+<body>
+<div class="container-fluid d-flex flex-column vh-100">
+    <!-- Header -->
+    <header class="w-100 text-center py-4 bg-white">
+        <h1 class="text-dark">Listado de Pacientes</h1>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <div id="listadoPacientes" class="paciente-list w-75">
+            <!-- Registro 1 -->
+        </div>
+
+        <!-- Paginación -->
+        <nav aria-label="Page navigation" class="my-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-100 text-center py-3 bg-dark">
+        <p class="text-white mb-1">Síguenos en:</p>
+        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-facebook-f fa-2x"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-twitter fa-2x"></i>
+        </a>
+    </footer>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Función para realizar la solicitud GET y obtener la lista de pacientes
+function listarPacientes() {
+    fetch('/pacientes', {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then(data => {
+            const listadoDiv = document.getElementById('listadoPacientes');
+            listadoDiv.innerHTML = '';  // Limpiar el contenido anterior
+
+            // Creamos la tabla y el encabezado
+            const table = document.createElement('table');
+            table.classList.add('table', 'table-striped');
+
+            const thead = document.createElement('thead');
+            thead.innerHTML = `
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Domicilio</th>
+                    <th>Fecha de Alta</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+
+            // Iteramos sobre la lista de pacientes y agregamos cada uno como una fila
+            data.forEach((paciente, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${paciente.nombre}</td>
+                    <td>${paciente.apellido}</td>
+                    <td>${paciente.dni}</td>
+                    <td>${paciente.domicilio}</td>
+                    <td>${new Date(paciente.fechaAlta).toLocaleString()}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // Agregamos el cuerpo de la tabla y la tabla al div listadoPacientes
+            table.appendChild(tbody);
+            listadoDiv.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Ejecutar la función listarPacientes cuando se cargue la página
+
+    listarPacientes();  // Llamar a la función para listar los pacientes
+
+
+
+</script>
+</body>
+</html>

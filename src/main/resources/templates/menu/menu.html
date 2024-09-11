@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Centro Odontológico - Menú</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome (for social icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Estilos para el menú lateral */
+    .sidebar {
+      width: 250px;
+      background-color: #f8f9fa;
+      height: 100%;
+      padding: 15px;
+      position: absolute;
+    }
+
+    .sidebar .nav-link {
+      color: #000;
+      font-weight: bold;
+    }
+
+    .sidebar .dropdown-menu {
+      display: none;
+      background-color: #e9ecef;
+    }
+
+    .content {
+      margin-left: 250px; /* Para que no quede encima del menú */
+      padding: 20px;
+    }
+
+    /* Para cambiar el estilo cuando se hace hover en los dropdowns */
+    .sidebar .nav-item:hover .dropdown-menu {
+      display: block;
+      position: relative;
+    }
+
+    .dropdown-item:hover {
+      background-color: #343a40;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid vh-100">
+  <!-- Header -->
+  <header class="w-100 text-center py-4" style="background-color: #f1f1f1;">
+    <h1 class="text-dark">CENTRO ODONTOLÓGICO</h1>
+  </header>
+
+  <!-- Menú lateral (sidebar) -->
+  <div class="sidebar">
+    <ul class="nav flex-column">
+      <!-- Odontólogos -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">ODONTÓLOGOS</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/odontologos-listar', 'contenido-dinamico')">Listar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/odontologos-agregar', 'contenido-dinamico')">Agregar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/odontologos-modificar', 'contenido-dinamico')">Modificar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/odontologos-eliminar', 'contenido-dinamico')">Eliminar</a></li>
+        </ul>
+      </li>
+
+      <!-- Pacientes -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">PACIENTES</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/pacientes-listar', 'contenido-dinamico')">Listar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/pacientes-agregar', 'contenido-dinamico')">Agregar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/pacientes-modificar', 'contenido-dinamico')">Modificar</a></li>
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/pacientes-eliminar', 'contenido-dinamico')">Eliminar</a></li>
+        </ul>
+      </li>
+
+      <!-- Gestión de Turnos -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">TURNOS</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#" onclick="cargarVista('/agendar-turno', 'contenido-dinamico')">Agendar</a></li>
+            </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <h2 id="bienvenida-texto">Bienvenido al Centro Odontológico</h2>
+    <p id="bienvenida-subtexto">Selecciona una opción del menú para continuar.</p>
+    <div id="contenido-dinamico">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-100 text-center py-3 bg-dark fixed-bottom">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+      <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+      <i class="fab fa-twitter fa-2x"></i>
+    </a>
+  </footer>
+</div>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/cargarVista.js"></script>
+</body>
+</html>

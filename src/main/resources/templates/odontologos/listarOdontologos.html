@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Centro Odontológico - Lista de Odontólogos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid d-flex flex-column vh-100">
+    <!-- Header -->
+    <header class="w-100 text-center py-4 bg-white">
+        <h1 class="text-dark">Listado de Odontólogos</h1>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+        <div id="listadoOdontologos" class="odontologos-list w-75">
+            <!-- Registros -->
+        </div>
+
+        <!-- Paginación -->
+        <nav aria-label="Page navigation" class="my-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-100 text-center py-3 bg-dark">
+        <p class="text-white mb-1">Síguenos en:</p>
+        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-facebook-f fa-2x"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+            <i class="fab fa-twitter fa-2x"></i>
+        </a>
+    </footer>
+</div>
+
+<!-- Incluir el script directamente en el HTML -->
+<script>
+    // Función para realizar la solicitud GET y obtener la lista de odontólogos
+    function listarOdontologos() {
+        // Realizamos la solicitud GET a la ruta /odontologos/findAll
+        fetch('/odontologos/findAll', {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Procesamos la respuesta, que contiene la lista de odontólogos
+                const listadoDiv = document.getElementById('listadoOdontologos');
+                listadoDiv.innerHTML = '';  // Limpiar el contenido anterior
+
+                // Creamos la tabla y el encabezado
+                const table = document.createElement('table');
+                table.classList.add('table', 'table-striped');
+
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
+                    <tr>
+                        <th>#</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Matrícula</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+
+                // Iteramos sobre la lista de odontólogos y agregamos cada uno como una fila
+                data.forEach((odontologo, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${odontologo.apellido}</td>
+                        <td>${odontologo.nombre}</td>
+                        <td>${odontologo.matricula}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // Agregamos el cuerpo de la tabla y la tabla al div listadoOdontologos
+                table.appendChild(tbody);
+                listadoDiv.appendChild(table);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Ejecutar la función listarOdontologos cuando se cargue la página
+    listarOdontologos();
+</script>
+</body>
+</html>

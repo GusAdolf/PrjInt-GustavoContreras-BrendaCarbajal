@@ -1,0 +1,71 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: white;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Gestión Boxes */
+.gestion-box {
+    height: 200px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gestion-box-light {
+    background-color: #d3d3d3;
+}
+
+.gestion-box-dark {
+    background-color: black;
+    color: white;
+}
+
+/* Footer */
+footer {
+    background-color: black;
+}
+
+footer p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer i {
+    color: white;
+    margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .gestion-box {
+        height: 150px;
+        font-size: 16px;
+    }
+}
