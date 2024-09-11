@@ -48,6 +48,17 @@ public class PacienteServicioImpl implements IPacienteServicio {
         iPacienteRepository.deleteById(id);
     }
 
+    @Override
+    public void eliminar(String dni) {
+
+        Paciente paciente = iPacienteRepository.findByDni(dni);
+
+        if (!iPacienteRepository.existsById(paciente.getId())) {
+            throw new ResourceNotFoundException("Paciente no encontrado con id: " + paciente.getId());
+        }
+        iPacienteRepository.deleteById(paciente.getId());
+    }
+
 
     @Override
     public Paciente buscarPorDni(String dni) {

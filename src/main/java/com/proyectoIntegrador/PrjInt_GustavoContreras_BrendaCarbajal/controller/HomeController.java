@@ -61,5 +61,15 @@ public class HomeController {
         return "turnos/turnos.html"; // Redirige a la página del turnos
     }
 
+    @GetMapping("/odontologos-eliminar")
+    public String redirectToEliminarOdontologos() {
+        return "odontologos/eliminarOdontologos.html"; // Redirige a la eliminación de odontólogos
+    }
+
+    @GetMapping("/pacientes-eliminar")
+    public String redirectToEliminarPacientes() {
+        return "pacientes/eliminarPacientes.html"; // Redirige a la página de eliminar pacientes
+    }
+
 
 }

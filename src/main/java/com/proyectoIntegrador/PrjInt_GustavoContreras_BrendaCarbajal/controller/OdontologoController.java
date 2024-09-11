@@ -65,4 +65,15 @@ public class OdontologoController {
         odontologoServicio.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    // Eliminar un odontólogo v2
+    @PostMapping(value = "/delete")
+    public ResponseEntity<Odontologo>  borrar(@RequestBody Odontologo odontologo) {
+
+        odontologoServicio.eliminar(odontologo.getMatricula());
+        return ResponseEntity.status(HttpStatus.OK).body(odontologo);
+
+
+
+    }
 }

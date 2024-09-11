@@ -27,11 +27,11 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
     }
 
     @Override
-    public void eliminar(Long id) {
-        if (!iOdontologoRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + id);
+    public void eliminar(Long matricula) {
+        if (!iOdontologoRepository.existsById(matricula)) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado con id: " + matricula);
         }
-        iOdontologoRepository.deleteById(id);
+        iOdontologoRepository.deleteById(matricula);
     }
 
     @Override

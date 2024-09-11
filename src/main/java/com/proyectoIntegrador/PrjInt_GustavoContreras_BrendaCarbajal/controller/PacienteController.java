@@ -61,4 +61,16 @@ public class PacienteController {
         Paciente paciente = iPacienteServicio.buscarPorDni(dni);
         return ResponseEntity.ok(paciente);
     }
+
+
+    // Eliminar un paciente v2
+    @PostMapping(value = "/delete")
+    public ResponseEntity<Paciente> borrar(@RequestBody Paciente paciente) {
+
+        iPacienteServicio.eliminar(paciente.getDni());
+        return ResponseEntity.status(HttpStatus.OK).body(paciente);
+
+
+
+    }
 }

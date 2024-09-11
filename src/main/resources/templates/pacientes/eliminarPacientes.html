@@ -4,67 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Centro Odontológico - Eliminar Paciente</title>
+    <title>Centro Odontológico - Modificar Paciente</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome (for social icons and trash icon) -->
+    <!-- Font Awesome (for social icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/front/css/eliminarPacientes.css">
-    <script src="/front/js/eliminarPacientes.js"></script>
+    <link rel="stylesheet" href="/css/modificarPacientes.css">
+
 </head>
 <body>
 <div class="container-fluid d-flex flex-column vh-100">
     <!-- Header -->
-    <header class="w-100 text-center py-4 bg-white">
-        <h1 class="text-dark">CENTRO ODONTOLÓGICO - Menú</h1>
-    </header>
 
     <!-- Main content -->
     <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
         <div class="paciente-form w-50">
             <!-- Buscar Paciente -->
             <div class="form-group d-flex">
-                <input type="text" class="form-control mr-2" placeholder="Buscar Paciente" required>
-                <button type="button" class="btn btn-dark">Buscar</button>
+                <input id="valor-dni" type="text" class="form-control mr-2" placeholder="Buscar Paciente" required>
+                <button id="buscar-dni" type="button" class="btn btn-dark">Buscar</button>
             </div>
 
-            <!-- Información del paciente -->
-            <form action="/eliminar-paciente" method="post">
+            <!-- Formulario de modificación -->
+            <form id="formBorrarPaciente">
                 <!-- Nombre -->
                 <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Nombre" readonly>
+                    <input type="text" id="nombre" class="form-control" placeholder="Nombre" required>
                 </div>
 
                 <!-- Apellido -->
                 <div class="form-group">
                     <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" class="form-control" placeholder="Apellido" readonly>
+                    <input type="text" id="apellido" class="form-control" placeholder="Apellido" required>
                 </div>
 
                 <!-- Domicilio -->
                 <div class="form-group">
                     <label for="domicilio">Domicilio</label>
-                    <input type="text" id="domicilio" class="form-control" placeholder="Domicilio" readonly>
+                    <input type="text" id="domicilio" class="form-control" placeholder="Domicilio" required>
                 </div>
 
                 <!-- DNI -->
                 <div class="form-group">
                     <label for="dni">DNI</label>
-                    <input type="text" id="dni" class="form-control" placeholder="DNI" readonly>
+                    <input type="text" id="dni" class="form-control" placeholder="DNI" required>
                 </div>
 
                 <!-- Fecha de Alta -->
                 <div class="form-group">
-                    <label for="fecha_alta">Fecha de Alta</label>
-                    <input type="date" id="fecha_alta" class="form-control" readonly>
+                    <label for="fechaAlta">Fecha de Alta</label>
+                    <input type="date" id="fechaAlta" class="form-control" required>
                 </div>
 
-                <!-- Botón Eliminar con Icono de Basura -->
+                <!-- Botón Guardar -->
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-danger btn-lg">
-                        <i class="fas fa-trash-alt"></i> Eliminar Paciente
-                    </button>
+                    <button type="submit" class="btn btn-dark btn-lg">ELIMINAR</button>
                 </div>
             </form>
         </div>
@@ -86,5 +81,97 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const buscarBtn = document.getElementById('buscar-dni');
+        const dniInput = document.getElementById('valor-dni');
+
+
+        buscarBtn.addEventListener('click', function () {
+            const dni = dniInput.value.trim();
+
+            if (dni) {
+                fetch(`/pacientes/searchbyndi/${dni}`, {
+                    method: 'GET'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Paciente no encontrado');
+                    }
+                })
+                .then(paciente => {
+
+                    document.getElementById('apellido').value = paciente.apellido;
+                    document.getElementById('nombre').value = paciente.nombre;
+                    document.getElementById('dni').value = paciente.dni;
+                    document.getElementById('fechaAlta').value = paciente.fechaAlta;
+                    document.getElementById('domicilio').value = paciente.domicilio;
+
+
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('No se encontró el paciente con esa matrícula.');
+                });
+            } else {
+                alert('Por favor, ingrese un DNI para buscar.');
+            }
+        });
+
+
+        document.getElementById('formBorrarPaciente').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+
+
+                const nombre = document.getElementById('nombre').value;
+                const apellido = document.getElementById('apellido').value;
+                const domicilio = document.getElementById('domicilio').value;
+                const dni = document.getElementById('dni').value;
+                const fechaAlta = document.getElementById('fechaAlta').value;
+
+
+            if (!nombre || !apellido || !dni) {
+                alert('Por favor, complete todos los campos.');
+                return;
+            }
+
+            // Crear el objeto odontólogo
+            const paciente = {
+                 nombre: nombre,
+                 apellido: apellido,
+                 domicilio: domicilio,
+                 dni: dni,
+                 fechaAlta: fechaAlta
+
+            };
+
+
+            fetch('/pacientes/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paciente)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Error al eliminar el paciente');
+                }
+            })
+            .then(data => {
+                alert('Paciente eliminado exitosamente');
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Hubo un error:', error);
+                alert('Hubo un problema al eliminar el paciente.');
+            });
+        });
+</script>
 </body>
 </html>

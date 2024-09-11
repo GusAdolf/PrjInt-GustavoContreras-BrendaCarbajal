@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface IOdontologoRepository extends JpaRepository<Odontologo, Long> {
 
     //    @Query("SELECT o FROM Odontologo o WHERE o.matricula = ?1")
-    Odontologo findByMatricula (Long matricula);
+    Odontologo findByMatricula(Long matricula);
 
 }

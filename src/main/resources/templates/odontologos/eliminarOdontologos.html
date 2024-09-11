@@ -4,55 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Centro Odontológico - Eliminar Odontólogo</title>
+  <title>Centro Odontológico - Modificar Odontólogo</title>
   <!-- Bootstrap CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome (for social icons and trash icon) -->
+  <!-- Font Awesome (for social icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="/front/css/eliminarOdontologos.css">
-  <script src="/front/js/eliminarOdontologos.js"></script>
+  <link rel="stylesheet" href="/css/modificarOdontologos.css">
+
 </head>
 <body>
 <div class="container-fluid d-flex flex-column vh-100">
   <!-- Header -->
-  <header class="w-100 text-center py-4 bg-white">
-    <h1 class="text-dark">CENTRO ODONTOLÓGICO - Menú</h1>
-  </header>
-
   <!-- Main content -->
   <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
     <div class="odontologo-form w-50">
       <!-- Buscar Odontólogo -->
       <div class="form-group d-flex">
-        <input type="text" class="form-control mr-2" placeholder="Buscar Odontólogo" required>
-        <button type="button" class="btn btn-dark">Buscar</button>
+        <input  id="valor-matricula" type="text" class="form-control mr-2" placeholder="Buscar Odontólogo" required>
+        <button id="buscar-matricula" type="button" class="btn btn-dark">BUSCAR</button>
       </div>
 
-      <!-- Información del Odontólogo -->
-      <form action="/eliminar-odontologo" method="post">
+      <!-- Formulario de modificación -->
+      <form id="formBorrarOdontologo">
         <!-- Apellido -->
         <div class="form-group">
           <label for="apellido">Apellido</label>
-          <input type="text" id="apellido" class="form-control" placeholder="Apellido" readonly>
+          <input type="text" id="apellido" class="form-control" placeholder="Escribe el apellido" required>
         </div>
 
         <!-- Nombre -->
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" class="form-control" placeholder="Nombre" readonly>
+          <input type="text" id="nombre" class="form-control" placeholder="Escribe el nombre" required>
         </div>
 
         <!-- Matrícula -->
         <div class="form-group">
           <label for="matricula">Matrícula</label>
-          <input type="text" id="matricula" class="form-control" placeholder="Matrícula" readonly>
+          <input type="text" id="matricula" class="form-control" placeholder="Escribe la matrícula" required>
         </div>
 
-        <!-- Botón Eliminar con Icono de Basura -->
+        <!-- Botón Guardar -->
         <div class="text-center mt-4">
-          <button type="submit" class="btn btn-danger btn-lg">
-            <i class="fas fa-trash-alt"></i> Eliminar Odontólogo
-          </button>
+          <button type="submit" class="btn btn-dark btn-lg">ELIMINAR</button>
         </div>
       </form>
     </div>
@@ -74,5 +68,88 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Incluir el script directamente -->
+<script>
+  const buscarBtn = document.getElementById('buscar-matricula');
+  const matriculaInput = document.getElementById('valor-matricula');
+
+  // Función para buscar odontólogo por matrícula
+  buscarBtn.addEventListener('click', function () {
+      const matricula = matriculaInput.value.trim();
+
+      if (matricula) {
+          fetch(`/odontologos/search/${matricula}`, {
+              method: 'GET'
+          })
+          .then(response => {
+              if (response.ok) {
+                  return response.json();
+              } else {
+                  throw new Error('Odontólogo no encontrado');
+              }
+          })
+          .then(odontologo => {
+              // Llenar los campos del formulario con los datos del odontólogo
+              document.getElementById('apellido').value = odontologo.apellido;
+              document.getElementById('nombre').value = odontologo.nombre;
+              document.getElementById('matricula').value = odontologo.matricula;
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('No se encontró el odontólogo con esa matrícula.');
+          });
+      } else {
+          alert('Por favor, ingrese una matrícula para buscar.');
+      }
+  });
+
+
+  document.getElementById('formBorrarOdontologo').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+
+
+      const nombre = document.getElementById('nombre').value;
+      const apellido = document.getElementById('apellido').value;
+      const matricula = document.getElementById('matricula').value;
+
+
+      if (!nombre || !apellido || !matricula) {
+          alert('Por favor, complete todos los campos.');
+          return;
+      }
+
+
+      const odontologo = {
+          nombre: nombre,
+          apellido: apellido,
+          matricula: matricula
+      };
+
+
+      fetch('/odontologos/delete', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(odontologo) // Convertir el objeto a JSON
+      })
+      .then(response => {
+          if (response.ok) {
+              return response.json(); // Parsear la respuesta JSON
+          } else {
+              throw new Error('Error al borrar el odontólogo');
+          }
+      })
+      .then(data => {
+          alert('Odontólogo borrado exitosamente');
+          console.log(data);
+      })
+      .catch(error => {
+          console.error('Hubo un error:', error);
+          alert('Hubo un problema al borrar el odontólogo.');
+      });
+  });
+</script>
 </body>
 </html>
