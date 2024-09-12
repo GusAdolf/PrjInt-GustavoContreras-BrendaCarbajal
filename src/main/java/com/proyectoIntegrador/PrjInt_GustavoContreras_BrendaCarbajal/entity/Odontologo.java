@@ -15,9 +15,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Odontologo {
 
-    private String nombre;
-    private String apellido;
 
     @Id
-    private Long  matricula;
+    @Column(name = "matricula", nullable = false, unique = true)
+    private Long matricula;
+
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+
+    @Column(name = "apellido", nullable = false)
+    private String apellido;
 }

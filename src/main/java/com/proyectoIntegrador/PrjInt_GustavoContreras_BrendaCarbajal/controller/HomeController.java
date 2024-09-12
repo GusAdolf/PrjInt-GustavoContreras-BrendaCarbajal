@@ -56,9 +56,14 @@ public class HomeController {
         return "pacientes/modificarPacientes.html"; // Redirige a la página de modificar pacientes
     }
 
-    @GetMapping("/agendar-turno")
+    @GetMapping("/agendar-turnos")
     public String redirectToTurnos() {
         return "turnos/turnos.html"; // Redirige a la página del turnos
+    }
+
+    @GetMapping("/listar-turnos")
+    public String redirectToListTurnos() {
+        return "turnos/listarTurnos.html"; // Redirige a la página del turnos
     }
 
     @GetMapping("/odontologos-eliminar")

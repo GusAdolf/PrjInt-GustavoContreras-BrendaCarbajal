@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,68 +10,222 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome (for social icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/css/turnos.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px;
+            padding-left: 20px; /* Alinear a la izquierda */
+            margin-bottom: 80px;
+        }
+
+        .turno-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 50%; /* Ajustar el ancho del formulario */
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            height: 45px;
+        }
+
+        .btn-lg {
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container-fluid d-flex flex-column vh-100">
-     <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <div class="turno-form w-50">
-            <form action="/guardar-turno" method="post">
-                <!-- Selección de Odontólogo -->
-                <div class="form-group">
-                    <label for="odontologo">Seleccionar Odontólogo</label>
-                    <select class="form-control" id="odontologo" name="odontologo" required>
-                        <option value="">Seleccione un Odontólogo</option>
-                        <option value="1">Dr. Juan Pérez</option>
-                        <option value="2">Dr. María López</option>
-                        <option value="3">Dr. Luis García</option>
-                    </select>
-                </div>
 
-                <!-- Selección de Paciente -->
-                <div class="form-group">
-                    <label for="paciente">Seleccionar Paciente</label>
-                    <select class="form-control" id="paciente" name="paciente" required>
-                        <option value="">Seleccione un Paciente</option>
-                        <option value="1">Ana Rodríguez</option>
-                        <option value="2">Carlos Ramírez</option>
-                        <option value="3">Lucía González</option>
-                    </select>
-                </div>
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Registrar Turno</h1>
+</header>
 
-                <!-- Fecha del Turno -->
-                <div class="form-group">
-                    <label for="fechaTurno">Seleccionar Fecha</label>
-                    <input type="date" class="form-control" id="fechaTurno" name="fechaTurno" required>
-                </div>
+<!-- Main content -->
+<div class="content">
+    <div class="turno-form">
+        <form id="formCrearTurno">
+            <!-- Selección de Odontólogo -->
+            <div class="form-group">
+                <label for="odontologo">Seleccionar Odontólogo</label>
+                <select class="form-control" id="odontologo" name="odontologo" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                </select>
+            </div>
 
-                <!-- Hora del Turno -->
-                <div class="form-group">
-                    <label for="horaTurno">Seleccionar Hora</label>
-                    <input type="time" class="form-control" id="horaTurno" name="horaTurno" required>
-                </div>
+            <!-- Selección de Paciente -->
+            <div class="form-group">
+                <label for="paciente">Seleccionar Paciente</label>
+                <select class="form-control" id="paciente" name="paciente" required>
+                    <option value="" disabled selected>Seleccione una opción</option>
+                </select>
+            </div>
 
-                <!-- Botón para registrar el turno -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-dark">Registrar Turno</button>
-                </div>
-            </form>
-        </div>
-    </main>
+            <!-- Fecha del Turno -->
+            <div class="form-group">
+                <label for="fechaTurno">Seleccionar Fecha</label>
+                <input type="date" class="form-control" id="fechaTurno" name="fechaTurno" required>
+            </div>
 
-    <!-- Footer -->
-    <footer class="w-100 text-center py-3 bg-dark">
-        <p class="text-white mb-1">Síguenos en:</p>
-        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-facebook-f fa-2x"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-twitter fa-2x"></i>
-        </a>
-    </footer>
+            <!-- Hora del Turno -->
+            <div class="form-group">
+                <label for="horaTurno">Seleccionar Hora</label>
+                <input type="time" class="form-control" id="horaTurno" name="horaTurno" required>
+            </div>
+
+            <!-- Botón para registrar el turno -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-dark btn-lg">Registrar Turno</button>
+            </div>
+        </form>
+    </div>
 </div>
 
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
+
+<!-- Script para cargar los odontólogos y pacientes dinámicamente -->
+<script>
+    // Cargar lista de odontólogos
+    fetch('/odontologos/findAll')
+        .then(response => response.json())
+        .then(odontologos => {
+            const odontologoSelect = document.getElementById('odontologo');
+            odontologos.forEach(odontologo => {
+                const option = document.createElement('option');
+                option.value = odontologo.matricula;  // Utilizamos la matrícula como el valor
+                option.textContent = `${odontologo.nombre} ${odontologo.apellido}`;
+                odontologoSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error cargando odontólogos:', error));
+
+    // Cargar lista de pacientes
+    fetch('/pacientes')
+        .then(response => response.json())
+        .then(pacientes => {
+            const pacienteSelect = document.getElementById('paciente');
+            pacientes.forEach(paciente => {
+                const option = document.createElement('option');
+                option.value = paciente.id;  // Utilizamos el id como el valor
+                option.textContent = `${paciente.nombre} ${paciente.apellido}`;
+                pacienteSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error cargando pacientes:', error));
+
+    // Asignar el evento de envío del formulario para registrar turno
+    document.getElementById('formCrearTurno').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Obtener los valores de los campos del formulario
+        const odontologoId = document.getElementById('odontologo').value;
+        const pacienteId = document.getElementById('paciente').value;
+        const fechaTurno = document.getElementById('fechaTurno').value;
+        const horaTurno = document.getElementById('horaTurno').value;
+
+        // Validar que los campos no estén vacíos
+        if (!odontologoId || !pacienteId || !fechaTurno || !horaTurno) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
+
+        // Crear un objeto con los datos a enviar
+        const turnoData = {
+            odontologo: { matricula: odontologoId },
+            paciente: { id: pacienteId },
+            fecha: fechaTurno,
+            hora: horaTurno
+        };
+
+        // Deshabilitar temporalmente el botón de submit para evitar múltiples envíos
+        const submitButton = event.target.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerText = 'Guardando...';  // Cambiar texto del botón
+
+        // Enviar la solicitud POST con los datos del formulario
+        fetch('/turnos/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(turnoData)
+        })
+        .then(response => {
+            if (response.status === 201) {
+                return response.json();
+            } else {
+                throw new Error('Error al guardar el turno');
+            }
+        })
+        .then(data => {
+            alert('Turno registrado exitosamente.');
+            console.log('Turno guardado:', data);
+
+            // Reiniciar el formulario y colocar las opciones por defecto
+            document.getElementById('formCrearTurno').reset();
+            document.getElementById('odontologo').value = ''; // Regresar a la opción por defecto
+            document.getElementById('paciente').value = '';   // Regresar a la opción por defecto
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al registrar el turno');
+        })
+        .finally(() => {
+            // Rehabilitar el botón de submit
+            submitButton.disabled = false;
+            submitButton.innerText = 'Registrar Turno';
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -33,9 +33,9 @@ public class PacienteController {
         return ResponseEntity.ok(iPacienteServicio.listarTodos());
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Paciente> actualizar(@PathVariable Long id, @RequestBody Paciente paciente) {
-        Paciente pacienteExistente = iPacienteServicio.buscarPorId(id);
+    @PutMapping("/update/{dni}")
+    public ResponseEntity<Paciente> actualizar(@PathVariable String dni, @RequestBody Paciente paciente) {
+        Paciente pacienteExistente = iPacienteServicio.buscarPorDni(dni);
         if (pacienteExistente != null) {
             pacienteExistente.setNombre(paciente.getNombre());
             pacienteExistente.setApellido(paciente.getApellido());
@@ -56,7 +56,7 @@ public class PacienteController {
     }
 
     // Obtener odontólogo por matrícula
-    @GetMapping("/searchbyndi/{dni}")
+    @GetMapping("/searchbydni/{dni}")
     public ResponseEntity<Paciente> buscarPorDni(@PathVariable String dni) {
         Paciente paciente = iPacienteServicio.buscarPorDni(dni);
         return ResponseEntity.ok(paciente);

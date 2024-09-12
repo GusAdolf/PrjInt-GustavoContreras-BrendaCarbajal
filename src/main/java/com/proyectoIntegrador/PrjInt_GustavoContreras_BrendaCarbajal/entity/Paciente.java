@@ -24,10 +24,19 @@ public class Paciente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "apellido", nullable = false)
     private String apellido;
+
+    @Column(name = "dni", nullable = false, unique = true)
     private String dni;
+
+    @Column(name = "fecha_alta", nullable = false)
     private LocalDate fechaAlta;
+
+    @Column(name = "domicilio", nullable = false)
     private String domicilio;
 
     // Relación con Domicilio

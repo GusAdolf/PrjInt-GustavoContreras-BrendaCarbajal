@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,66 +8,125 @@
     <title>Centro Odontológico - Modificar Odontólogo</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome (for social icons) -->
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/css/modificarOdontologos.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
 
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        .odontologo-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            height: 45px;
+        }
+
+        .btn-lg {
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-<div class="container-fluid d-flex flex-column vh-100">
-    <!-- Header -->
-    <header class="w-100 text-center py-4 bg-white">
-        <h1 class="text-dark">Modificar Odontólogo</h1>
-    </header>
 
-    <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <div class="odontologo-form w-50">
-            <!-- Buscar Odontólogo -->
-            <div class="form-group d-flex">
-                <input  id="valor-matricula" type="text" class="form-control mr-2" placeholder="Buscar Odontólogo" required>
-                <button id="buscar-matricula" type="button" class="btn btn-dark">BUSCAR</button>
+<body>
+
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Modificar Odontólogo</h1>
+</header>
+
+<!-- Main content -->
+<div class="content">
+    <div class="odontologo-form">
+        <!-- Buscar Odontólogo -->
+        <div class="form-group d-flex">
+            <input id="valor-matricula" type="text" class="form-control mr-2" placeholder="Buscar Odontólogo" required>
+            <button id="buscar-matricula" type="button" class="btn btn-dark">BUSCAR</button>
+        </div>
+
+        <!-- Formulario de modificación -->
+        <form id="formModificarOdontologo">
+            <!-- Apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" class="form-control" placeholder="Escribe el apellido" required>
             </div>
 
-            <!-- Formulario de modificación -->
-            <form id="formModificarOdontologo">
-                <!-- Apellido -->
-                <div class="form-group">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" class="form-control" placeholder="Escribe el apellido" required>
-                </div>
+            <!-- Nombre -->
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Escribe el nombre" required>
+            </div>
 
-                <!-- Nombre -->
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Escribe el nombre" required>
-                </div>
+            <!-- Matrícula -->
+            <div class="form-group">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" class="form-control" placeholder="Escribe la matrícula" required>
+            </div>
 
-                <!-- Matrícula -->
-                <div class="form-group">
-                    <label for="matricula">Matrícula</label>
-                    <input type="text" id="matricula" class="form-control" placeholder="Escribe la matrícula" required>
-                </div>
-
-                <!-- Botón Guardar -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-dark btn-lg">GUARDAR</button>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-100 text-center py-3 bg-dark">
-        <p class="text-white mb-1">Síguenos en:</p>
-        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-facebook-f fa-2x"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-twitter fa-2x"></i>
-        </a>
-    </footer>
+            <!-- Botón Guardar -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-dark btn-lg">GUARDAR</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -75,85 +135,98 @@
 
 <!-- Incluir el script directamente -->
 <script>
-     const buscarBtn = document.getElementById('buscar-matricula');
-     const matriculaInput = document.getElementById('valor-matricula');
+    // Asignar el evento de clic al contenedor superior, como el body
+    document.body.addEventListener('click', function (event) {
+        // Verificar si el elemento clicado es el botón de buscar odontólogo
+        if (event.target && event.target.id === 'buscar-matricula') {
+            const matriculaInput = document.getElementById('valor-matricula');
+            const matricula = matriculaInput.value.trim();
 
-     // Función para buscar odontólogo por matrícula
-     buscarBtn.addEventListener('click', function () {
-         const matricula = matriculaInput.value.trim();
+            if (matricula) {
+                fetch(`/odontologos/search/${matricula}`, {
+                    method: 'GET'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Odontólogo no encontrado');
+                    }
+                })
+                .then(odontologo => {
+                    // Llenar los campos del formulario con los datos del odontólogo
+                    document.getElementById('apellido').value = odontologo.apellido;
+                    document.getElementById('nombre').value = odontologo.nombre;
+                    document.getElementById('matricula').value = odontologo.matricula;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('No se encontró el odontólogo con esa matrícula.');
+                });
+            } else {
+                alert('Por favor, ingrese una matrícula para buscar.');
+            }
+        }
+    });
 
-         if (matricula) {
-             fetch(`/odontologos/search/${matricula}`, {
-                 method: 'GET'
-             })
-             .then(response => {
-                 if (response.ok) {
-                     return response.json();
-                 } else {
-                     throw new Error('Odontólogo no encontrado');
-                 }
-             })
-             .then(odontologo => {
-                 // Llenar los campos del formulario con los datos del odontólogo
-                 document.getElementById('apellido').value = odontologo.apellido;
-                 document.getElementById('nombre').value = odontologo.nombre;
-                 document.getElementById('matricula').value = odontologo.matricula;
-             })
-             .catch(error => {
-                 console.error('Error:', error);
-                 alert('No se encontró el odontólogo con esa matrícula.');
-             });
-         } else {
-             alert('Por favor, ingrese una matrícula para buscar.');
-         }
-     });
+    // Asignar el evento de envío del formulario de modificar odontólogo (una vez)
+    document.getElementById('formModificarOdontologo').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
 
-     // Función para guardar/editar el odontólogo (POST)
-     document.getElementById('formModificarOdontologo').addEventListener('submit', function(event) {
-         event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+        // Obtener los valores del formulario
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const matricula = document.getElementById('matricula').value.trim();
 
-         // Obtener los valores del formulario
-         const nombre = document.getElementById('nombre').value;
-         const apellido = document.getElementById('apellido').value;
-         const matricula = document.getElementById('matricula').value;
+        // Validar que todos los campos estén llenos
+        if (!nombre || !apellido || !matricula) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
 
-         // Validar que todos los campos estén llenos
-         if (!nombre || !apellido || !matricula) {
-             alert('Por favor, complete todos los campos.');
-             return;
-         }
+        // Crear el objeto odontólogo
+        const odontologo = {
+            nombre: nombre,
+            apellido: apellido,
+            matricula: matricula
+        };
 
-         // Crear el objeto odontólogo
-         const odontologo = {
-             nombre: nombre,
-             apellido: apellido,
-             matricula: matricula
-         };
+        // Hacer la solicitud POST para guardar o actualizar el odontólogo
+        fetch('/odontologos/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(odontologo) // Convertir el objeto a JSON
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Parsear la respuesta JSON
+            } else {
+                throw new Error('Error al guardar el odontólogo');
+            }
+        })
+        .then(data => {
+            alert('Odontólogo guardado exitosamente');
+            console.log(data);
 
-         // Hacer la solicitud POST para guardar o actualizar el odontólogo
-         fetch('/odontologos/save', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify(odontologo) // Convertir el objeto a JSON
-         })
-         .then(response => {
-             if (response.ok) {
-                 return response.json(); // Parsear la respuesta JSON
-             } else {
-                 throw new Error('Error al guardar el odontólogo');
-             }
-         })
-         .then(data => {
-             alert('Odontólogo guardado exitosamente');
-             console.log(data);
-         })
-         .catch(error => {
-             console.error('Hubo un error:', error);
-             alert('Hubo un problema al guardar el odontólogo.');
-         });
-     });
+              // Reiniciar el formulario
+            document.getElementById('formModificarOdontologo').reset();
+
+            // Limpiar también el campo de búsqueda (valor-dni)
+            document.getElementById('valor-matricula').value = '';
+        })
+        .catch(error => {
+            console.error('Hubo un error:', error);
+            alert('Hubo un problema al guardar el odontólogo.');
+        });
+    });
 </script>
+
+
+
+
+
 </body>
+
 </html>

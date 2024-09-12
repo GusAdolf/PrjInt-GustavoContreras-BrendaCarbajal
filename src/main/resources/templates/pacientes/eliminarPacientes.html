@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,88 +10,153 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome (for social icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/css/modificarPacientes.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
 
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px; /* Para evitar que el contenido se solape con el header */
+            padding-left: 20px; /* Alinear a la izquierda */
+            margin-bottom: 80px; /* Para evitar que el contenido toque el footer */
+        }
+
+        .paciente-form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 50%; /* Ajustar el ancho del formulario */
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            height: 45px;
+        }
+
+        .btn-lg {
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
-<div class="container-fluid d-flex flex-column vh-100">
-    <!-- Header -->
 
-    <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <div class="paciente-form w-50">
-            <!-- Buscar Paciente -->
-            <div class="form-group d-flex">
-                <input id="valor-dni" type="text" class="form-control mr-2" placeholder="Buscar Paciente" required>
-                <button id="buscar-dni" type="button" class="btn btn-dark">Buscar</button>
+<body>
+
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Eliminar Paciente</h1>
+</header>
+
+<!-- Main content -->
+<div class="content">
+    <div class="paciente-form">
+        <!-- Buscar Paciente -->
+        <div class="form-group d-flex">
+            <input id="valor-dni" type="text" class="form-control mr-2" placeholder="Buscar Paciente" required>
+            <button id="buscar-dni" type="button" class="btn btn-dark">Buscar</button>
+        </div>
+
+        <!-- Formulario de modificación -->
+        <form id="formBorrarPaciente">
+            <!-- Nombre -->
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" class="form-control" placeholder="Nombre" required>
             </div>
 
-            <!-- Formulario de modificación -->
-            <form id="formBorrarPaciente">
-                <!-- Nombre -->
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Nombre" required>
-                </div>
+            <!-- Apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" class="form-control" placeholder="Apellido" required>
+            </div>
 
-                <!-- Apellido -->
-                <div class="form-group">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" class="form-control" placeholder="Apellido" required>
-                </div>
+            <!-- Domicilio -->
+            <div class="form-group">
+                <label for="domicilio">Domicilio</label>
+                <input type="text" id="domicilio" class="form-control" placeholder="Domicilio" required>
+            </div>
 
-                <!-- Domicilio -->
-                <div class="form-group">
-                    <label for="domicilio">Domicilio</label>
-                    <input type="text" id="domicilio" class="form-control" placeholder="Domicilio" required>
-                </div>
+            <!-- DNI -->
+            <div class="form-group">
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" class="form-control" placeholder="DNI" required>
+            </div>
 
-                <!-- DNI -->
-                <div class="form-group">
-                    <label for="dni">DNI</label>
-                    <input type="text" id="dni" class="form-control" placeholder="DNI" required>
-                </div>
+            <!-- Fecha de Alta -->
+            <div class="form-group">
+                <label for="fechaAlta">Fecha de Alta</label>
+                <input type="date" id="fechaAlta" class="form-control" required>
+            </div>
 
-                <!-- Fecha de Alta -->
-                <div class="form-group">
-                    <label for="fechaAlta">Fecha de Alta</label>
-                    <input type="date" id="fechaAlta" class="form-control" required>
-                </div>
-
-                <!-- Botón Guardar -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-dark btn-lg">ELIMINAR</button>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-100 text-center py-3 bg-dark">
-        <p class="text-white mb-1">Síguenos en:</p>
-        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-facebook-f fa-2x"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-twitter fa-2x"></i>
-        </a>
-    </footer>
+            <!-- Botón Guardar -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-dark btn-lg">ELIMINAR</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script para manejar la búsqueda y eliminación del paciente -->
 <script>
-    const buscarBtn = document.getElementById('buscar-dni');
-        const dniInput = document.getElementById('valor-dni');
-
-
-        buscarBtn.addEventListener('click', function () {
+    // Asignar el evento de clic al contenedor superior, como el body
+    document.body.addEventListener('click', function (event) {
+        // Verificar si el elemento clicado es el botón de buscar paciente
+        if (event.target && event.target.id === 'buscar-dni') {
+            const dniInput = document.getElementById('valor-dni');
             const dni = dniInput.value.trim();
 
             if (dni) {
-                fetch(`/pacientes/searchbyndi/${dni}`, {
+                fetch(`/pacientes/searchbydni/${dni}`, {
                     method: 'GET'
                 })
                 .then(response => {
@@ -101,77 +167,87 @@
                     }
                 })
                 .then(paciente => {
-
+                    // Llenar los campos del formulario con los datos del paciente
                     document.getElementById('apellido').value = paciente.apellido;
                     document.getElementById('nombre').value = paciente.nombre;
                     document.getElementById('dni').value = paciente.dni;
                     document.getElementById('fechaAlta').value = paciente.fechaAlta;
                     document.getElementById('domicilio').value = paciente.domicilio;
-
-
-
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('No se encontró el paciente con esa matrícula.');
+                    alert('No se encontró el paciente con ese DNI.');
                 });
             } else {
                 alert('Por favor, ingrese un DNI para buscar.');
             }
-        });
+        }
+    });
 
+    // Asignar el evento de envío del formulario para eliminar paciente (una vez)
+    document.getElementById('formBorrarPaciente').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
 
-        document.getElementById('formBorrarPaciente').addEventListener('submit', function(event) {
-            event.preventDefault();
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const domicilio = document.getElementById('domicilio').value.trim();
+        const dni = document.getElementById('dni').value.trim();
+        const fechaAlta = document.getElementById('fechaAlta').value.trim();
 
+        // Validar que todos los campos estén llenos
+        if (!nombre || !apellido || !dni) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
 
+        // Crear el objeto paciente
+        const paciente = {
+            nombre: nombre,
+            apellido: apellido,
+            domicilio: domicilio,
+            dni: dni,
+            fechaAlta: fechaAlta
+        };
 
-                const nombre = document.getElementById('nombre').value;
-                const apellido = document.getElementById('apellido').value;
-                const domicilio = document.getElementById('domicilio').value;
-                const dni = document.getElementById('dni').value;
-                const fechaAlta = document.getElementById('fechaAlta').value;
+        // Deshabilitar temporalmente el botón de submit para evitar múltiples envíos
+        const submitButton = event.target.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerText = 'Eliminando...';  // Cambiar texto del botón
 
-
-            if (!nombre || !apellido || !dni) {
-                alert('Por favor, complete todos los campos.');
-                return;
+        // Hacer la solicitud POST para eliminar el paciente
+        fetch('/pacientes/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paciente)
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error al eliminar el paciente');
             }
-
-            // Crear el objeto odontólogo
-            const paciente = {
-                 nombre: nombre,
-                 apellido: apellido,
-                 domicilio: domicilio,
-                 dni: dni,
-                 fechaAlta: fechaAlta
-
-            };
-
-
-            fetch('/pacientes/delete', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(paciente)
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('Error al eliminar el paciente');
-                }
-            })
-            .then(data => {
-                alert('Paciente eliminado exitosamente');
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Hubo un error:', error);
-                alert('Hubo un problema al eliminar el paciente.');
-            });
+        })
+        .then(data => {
+            alert('Paciente eliminado exitosamente');
+            console.log(data);
+            document.getElementById('formBorrarPaciente').reset(); // Limpiar el formulario
+            document.getElementById('valor-dni').value = '';
+        })
+        .catch(error => {
+            console.error('Hubo un error:', error);
+            alert('Hubo un problema al eliminar el paciente. Verifique que no tenga un turno o cita vigente.');
+        })
+        .finally(() => {
+            // Rehabilitar el botón de submit
+            submitButton.disabled = false;
+            submitButton.innerText = 'ELIMINAR';
         });
+    });
 </script>
+
+
 </body>
+
 </html>
