@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,66 +8,117 @@
     <title>Centro Odontológico - Lista de Odontólogos</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Ajustes para que el contenido esté entre el header y el footer */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px; /* Añadir espacio debajo del header */
+            padding-left: 20px; /* Alinear a la izquierda */
+            padding-top: 20px; /* Alinear hacia arriba */
+            margin-bottom: 80px; /* Para que no se solape con el footer */
+        }
+
+        .listadoOdontologos {
+            width: 80%; /* Reducir el ancho para alinear mejor */
+            padding: 10px 0;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container-fluid d-flex flex-column vh-100">
-    <!-- Header -->
-    <header class="w-100 text-center py-4 bg-white">
-        <h1 class="text-dark">Listado de Odontólogos</h1>
-    </header>
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Listado de Odontólogos</h1>
+</header>
 
-    <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <div id="listadoOdontologos" class="odontologos-list w-75">
-            <!-- Registros -->
-        </div>
+<!-- Main content -->
+<div class="content">
+    <div id="listadoOdontologos" class="listadoOdontologos">
+        <!-- Registros -->
+    </div>
 
-        <!-- Paginación -->
-        <nav aria-label="Page navigation" class="my-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-100 text-center py-3 bg-dark">
-        <p class="text-white mb-1">Síguenos en:</p>
-        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-facebook-f fa-2x"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-twitter fa-2x"></i>
-        </a>
-    </footer>
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" class="my-4">
+        <ul class="pagination justify-content-start"> <!-- Cambiar a justify-content-start para alinear la paginación a la izquierda -->
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
 
 <!-- Incluir el script directamente en el HTML -->
 <script>
-    // Función para realizar la solicitud GET y obtener la lista de odontólogos
     function listarOdontologos() {
-        // Realizamos la solicitud GET a la ruta /odontologos/findAll
         fetch('/odontologos/findAll', {
             method: 'GET'
         })
             .then(response => response.json())
             .then(data => {
-                // Procesamos la respuesta, que contiene la lista de odontólogos
                 const listadoDiv = document.getElementById('listadoOdontologos');
                 listadoDiv.innerHTML = '';  // Limpiar el contenido anterior
 
-                // Creamos la tabla y el encabezado
                 const table = document.createElement('table');
                 table.classList.add('table', 'table-striped');
 
@@ -83,7 +135,6 @@
 
                 const tbody = document.createElement('tbody');
 
-                // Iteramos sobre la lista de odontólogos y agregamos cada uno como una fila
                 data.forEach((odontologo, index) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -95,15 +146,14 @@
                     tbody.appendChild(row);
                 });
 
-                // Agregamos el cuerpo de la tabla y la tabla al div listadoOdontologos
                 table.appendChild(tbody);
                 listadoDiv.appendChild(table);
             })
             .catch(error => console.error('Error:', error));
     }
 
-    // Ejecutar la función listarOdontologos cuando se cargue la página
     listarOdontologos();
 </script>
 </body>
+
 </html>

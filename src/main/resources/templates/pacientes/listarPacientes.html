@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,67 +10,123 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome (for social icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/css/listarPacientes.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
 
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px;
+            padding-left: 20px; /* Alinear a la izquierda */
+            margin-bottom: 80px;
+        }
+
+        .paciente-list {
+            width: 80%; /* Ajustar el ancho para alinear mejor */
+            padding: 10px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .table thead th, .table tbody td {
+            text-align: left; /* Alinear el contenido de la tabla a la izquierda */
+            vertical-align: middle;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container-fluid d-flex flex-column vh-100">
-    <!-- Header -->
-    <header class="w-100 text-center py-4 bg-white">
-        <h1 class="text-dark">Listado de Pacientes</h1>
-    </header>
 
-    <!-- Main content -->
-    <main class="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <div id="listadoPacientes" class="paciente-list w-75">
-            <!-- Registro 1 -->
-        </div>
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Listado de Pacientes</h1>
+</header>
 
-        <!-- Paginación -->
-        <nav aria-label="Page navigation" class="my-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Anterior</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
+<!-- Main content -->
+<div class="content">
+    <div id="listadoPacientes" class="paciente-list">
+        <!-- Registros -->
+    </div>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-100 text-center py-3 bg-dark">
-        <p class="text-white mb-1">Síguenos en:</p>
-        <a href="https://facebook.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-facebook-f fa-2x"></i>
-        </a>
-        <a href="https://twitter.com" target="_blank" class="text-white mx-2">
-            <i class="fab fa-twitter fa-2x"></i>
-        </a>
-    </footer>
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" class="my-4">
+        <ul class="pagination justify-content-start"> <!-- Cambiar a justify-content-start para alinear la paginación a la izquierda -->
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Anterior</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
 </div>
+
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank" class="text-white mx-2">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Script para cargar la lista de pacientes -->
 <script>
     // Función para realizar la solicitud GET y obtener la lista de pacientes
-function listarPacientes() {
-    fetch('/pacientes', {
-        method: 'GET'
-    })
+    function listarPacientes() {
+        fetch('/pacientes', {
+            method: 'GET'
+        })
         .then(response => response.json())
         .then(data => {
             const listadoDiv = document.getElementById('listadoPacientes');
@@ -103,7 +160,7 @@ function listarPacientes() {
                     <td>${paciente.apellido}</td>
                     <td>${paciente.dni}</td>
                     <td>${paciente.domicilio}</td>
-                    <td>${new Date(paciente.fechaAlta).toLocaleString()}</td>
+                    <td>${new Date(paciente.fechaAlta).toLocaleDateString()}</td>
                 `;
                 tbody.appendChild(row);
             });
@@ -113,14 +170,11 @@ function listarPacientes() {
             listadoDiv.appendChild(table);
         })
         .catch(error => console.error('Error:', error));
-}
+    }
 
-// Ejecutar la función listarPacientes cuando se cargue la página
-
-    listarPacientes();  // Llamar a la función para listar los pacientes
-
-
-
+    // Ejecutar la función listarPacientes cuando se cargue la página
+    listarPacientes();
 </script>
 </body>
+
 </html>

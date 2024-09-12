@@ -17,7 +17,7 @@ public class TurnoController {
     private ITurnoServicio iTurnoServicio;
 
     // Crear un nuevo turno (POST)
-    @PostMapping
+    @PostMapping(value = "/save")
     public ResponseEntity<Turno> guardar(@RequestBody Turno turno) {
         Turno nuevoTurno = iTurnoServicio.guardar(turno);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoTurno);
@@ -32,7 +32,7 @@ public class TurnoController {
     }
 
     // Listar todos los turnos (GET)
-    @GetMapping
+    @GetMapping(value = "/findAll")
     public ResponseEntity<List<Turno>> listarTodos() {
         List<Turno> turnos = iTurnoServicio.listarTodos();
         return ResponseEntity.ok(turnos);
