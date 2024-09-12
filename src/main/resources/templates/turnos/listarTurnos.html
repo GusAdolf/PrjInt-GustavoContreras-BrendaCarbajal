@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista de Turnos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            height: 80px;
+        }
+
+        .content {
+            margin-top: 100px;
+            padding-left: 20px; /* Alinear a la izquierda */
+            margin-bottom: 80px;
+        }
+
+        .listado-turnos {
+            width: 80%; /* Reducir el ancho */
+            padding: 10px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .table thead th {
+            text-align: left; /* Alinear a la izquierda */
+            vertical-align: middle;
+        }
+
+        .table tbody td {
+            text-align: left; /* Alinear a la izquierda */
+            vertical-align: middle;
+        }
+
+        .table-icon {
+            margin-right: 5px;
+        }
+
+        .action-btn {
+            margin-left: 5px;
+            color: #fff;
+        }
+
+        .btn-edit {
+            background-color: #28a745;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="w-100 text-center">
+    <h1>Lista de Turnos</h1>
+</header>
+
+<!-- Main content -->
+<div class="content">
+    <div class="listado-turnos">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th><i class="fas fa-id-badge table-icon"></i>Matrícula del Odontólogo</th>
+                <th><i class="fas fa-user-md table-icon"></i>Nombre del Odontólogo</th>
+                <th><i class="fas fa-user-md table-icon"></i>Apellido del Odontólogo</th>
+                <th><i class="fas fa-user table-icon"></i>Nombre del Paciente</th>
+                <th><i class="fas fa-user table-icon"></i>Apellido del Paciente</th>
+                <th><i class="fas fa-calendar-alt table-icon"></i>Fecha del Turno</th>
+                <th><i class="fas fa-clock table-icon"></i>Hora del Turno</th>
+            </tr>
+            </thead>
+            <tbody id="turnos-lista">
+            <!-- Aquí se insertarán los turnos dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="w-100 text-center">
+    <p class="text-white mb-1">Síguenos en:</p>
+    <a href="https://facebook.com" target="_blank">
+        <i class="fab fa-facebook-f fa-2x"></i>
+    </a>
+    <a href="https://twitter.com" target="_blank">
+        <i class="fab fa-twitter fa-2x"></i>
+    </a>
+</footer>
+
+<script>
+    // Función para cargar todos los turnos
+    function cargarTurnos() {
+        fetch('/turnos/findAll')
+            .then(response => response.json())
+            .then(turnos => {
+                const turnosLista = document.getElementById('turnos-lista');
+                turnos.forEach(turno => {
+                    const row = document.createElement('tr');
+
+                    // Matrícula del Odontólogo
+                    const odontologoMatricula = document.createElement('td');
+                    odontologoMatricula.textContent = turno.odontologo.matricula;
+                    row.appendChild(odontologoMatricula);
+
+                    // Nombre del Odontólogo
+                    const odontologoNombre = document.createElement('td');
+                    odontologoNombre.textContent = turno.odontologo.nombre;
+                    row.appendChild(odontologoNombre);
+
+                    // Apellido del Odontólogo
+                    const odontologoApellido = document.createElement('td');
+                    odontologoApellido.textContent = turno.odontologo.apellido;
+                    row.appendChild(odontologoApellido);
+
+                    // Nombre del Paciente
+                    const pacienteNombre = document.createElement('td');
+                    pacienteNombre.textContent = turno.paciente.nombre;
+                    row.appendChild(pacienteNombre);
+
+                    // Apellido del Paciente
+                    const pacienteApellido = document.createElement('td');
+                    pacienteApellido.textContent = turno.paciente.apellido;
+                    row.appendChild(pacienteApellido);
+
+                    // Fecha del Turno
+                    const fechaTurno = document.createElement('td');
+                    fechaTurno.textContent = turno.fecha;
+                    row.appendChild(fechaTurno);
+
+                    // Hora del Turno
+                    const horaTurno = document.createElement('td');
+                    horaTurno.textContent = turno.hora;
+                    row.appendChild(horaTurno);
+
+                    turnosLista.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error al cargar los turnos:', error));
+    }
+
+    // Llamar a la función para cargar los turnos cuando se cargue la página
+    cargarTurnos();
+</script>
+</body>
+
+</html>

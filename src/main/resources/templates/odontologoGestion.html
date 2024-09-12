@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Odontólogos</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<header class="bg-blue-600 text-white py-4 shadow-lg">
+    <div class="container mx-auto text-center">
+        <h1 class="text-3xl font-bold">Gestionar Odontólogos</h1>
+    </div>
+</header>
+
+<main class="container mx-auto py-10 flex-grow">
+    <!-- Botón para regresar al inicio -->
+    <div class="text-right mb-6">
+        <a href="index.html" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">
+            <i class="fas fa-arrow-left"></i> Regresar al inicio
+        </a>
+    </div>
+
+    <!-- Sección para agregar un nuevo odontólogo -->
+    <div class="bg-white p-6 shadow-lg rounded-lg mb-10">
+        <h2 class="text-2xl font-bold mb-4">Agregar Nuevo Odontólogo</h2>
+        <form id="add_new_odontologo">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div class="form-group">
+                    <label for="nombre" class="block font-semibold">Nombre:</label>
+                    <input type="text" class="form-control border border-gray-300 rounded py-2 px-3 w-full" id="nombre" placeholder="Ingrese el nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido" class="block font-semibold">Apellido:</label>
+                    <input type="text" class="form-control border border-gray-300 rounded py-2 px-3 w-full" id="apellido" placeholder="Ingrese el apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="matricula" class="block font-semibold">Matrícula:</label>
+                    <input type="text" class="form-control border border-gray-300 rounded py-2 px-3 w-full" id="matricula" placeholder="Ingrese la matrícula" required>
+                </div>
+            </div>
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                Guardar Odontólogo
+            </button>
+        </form>
+        <div id="response" style="display:none; margin-top:10px"></div>
+    </div>
+
+    <!-- Sección para listar y gestionar odontólogos -->
+    <div class="bg-white p-6 shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">Lista de Odontólogos</h2>
+        <table class="table-auto w-full mb-6">
+            <thead>
+            <tr class="bg-gray-200 text-left">
+                <th class="px-4 py-2">Id</th>
+                <th class="px-4 py-2">Nombre</th>
+                <th class="px-4 py-2">Apellido</th>
+                <th class="px-4 py-2">Matrícula</th>
+                <th class="px-4 py-2">Acciones</th>
+            </tr>
+            </thead>
+            <tbody id="odontologoTableBody">
+            <!-- Aquí se insertarán las filas dinámicamente -->
+            </tbody>
+        </table>
+
+        <!-- Buscador por ID -->
+        <div class="mt-6">
+            <h2 class="text-xl font-bold mb-4">Buscar Odontólogo por ID</h2>
+            <form id="search_odontologo_form">
+                <div class="flex items-center space-x-4">
+                    <input type="number" id="odontologo_id_search" class="border border-gray-300 rounded py-2 px-4" placeholder="Ingrese el ID">
+                    <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">
+                        Buscar Odontólogo
+                    </button>
+                </div>
+            </form>
+            <div id="search_response" style="display:none; margin-top:10px"></div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="bg-blue-600 text-white py-4 text-center">
+    Trabajo Integrador - Gustavo Contreras & Brenda Carbajal
+</footer>
+
+<script src="../static/js/odontologo/post_odontologo.js"></script>
+<script src="../static/js/odontologo/get_odontologo.js"></script>
+<script src="../static/js/odontologo/delete_odontologo.js"></script>
+<script src="../static/js/odontologo/update_odontologo.js"></script>
+<script src="../static/js/odontologo/search_odontologo.js"></script>
+
+</body>
+</html>

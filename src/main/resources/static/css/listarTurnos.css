@@ -1,0 +1,93 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: white;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Lista de Turnos */
+.turnos-list {
+    margin-top: 20px;
+}
+
+.turno-card {
+    background-color: black;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.turno-card .label {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+/* Paginación */
+.pagination {
+    margin-top: 20px;
+}
+
+.page-item .page-link {
+    color: black;
+    border-color: #d3d3d3;
+}
+
+.page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+
+.page-item .page-link:hover {
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+}
+
+/* Footer */
+footer {
+    background-color: black;
+}
+
+footer p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer i {
+    color: white;
+    margin: 0 10px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .turnos-list {
+        width: 90%;
+    }
+
+    .pagination {
+        justify-content: center;
+    }
+}
