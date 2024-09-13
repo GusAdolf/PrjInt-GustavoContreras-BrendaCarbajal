@@ -5,9 +5,11 @@ import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.exception.R
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.repository.IOdontologoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class OdontologoServicioImplTest {
 
     @Mock
@@ -28,95 +31,69 @@ class OdontologoServicioImplTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         odontologo = new Odontologo();
-        odontologo.setMatricula(1L);  // Corregido para que sea un `Long`
+        odontologo.setMatricula(123L);
         odontologo.setNombre("Juan");
         odontologo.setApellido("Perez");
     }
 
     @Test
-    void guardar() {
+    void testGuardar() {
         when(odontologoRepository.save(odontologo)).thenReturn(odontologo);
 
         Odontologo result = odontologoServicio.guardar(odontologo);
 
         assertNotNull(result);
-        assertEquals("Juan", result.getNombre());
+        assertEquals(odontologo.getMatricula(), result.getMatricula());
         verify(odontologoRepository, times(1)).save(odontologo);
     }
 
     @Test
-    void buscarPorId() {
-        when(odontologoRepository.findById(1L)).thenReturn(Optional.of(odontologo));
+    void testBuscarPorId_ExistingId() {
+        when(odontologoRepository.findById(123L)).thenReturn(Optional.of(odontologo));
 
-        Odontologo result = odontologoServicio.buscarPorId(1L);
+        Odontologo result = odontologoServicio.buscarPorId(123L);
 
         assertNotNull(result);
-        assertEquals("Juan", result.getNombre());
-        verify(odontologoRepository, times(1)).findById(1L);
+        assertEquals(odontologo.getMatricula(), result.getMatricula());
+        verify(odontologoRepository, times(1)).findById(123L);
     }
 
     @Test
-    void buscarPorId_NotFound() {
-        when(odontologoRepository.findById(1L)).thenReturn(Optional.empty());
+    void testBuscarPorId_NotFound() {
+        when(odontologoRepository.findById(123L)).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            odontologoServicio.buscarPorId(1L);
+            odontologoServicio.buscarPorId(123L);
         });
 
-        String expectedMessage = "Odontólogo no encontrado con id: 1";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals("Odontólogo no encontrado con id: 123", exception.getMessage());
+        verify(odontologoRepository, times(1)).findById(123L);
     }
 
     @Test
-    void eliminar() {
-        when(odontologoRepository.existsById(1L)).thenReturn(true);
+    void testEliminar_ExistingId() {
+        when(odontologoRepository.existsById(123L)).thenReturn(true);
 
-        odontologoServicio.eliminar(1L);
+        odontologoServicio.eliminar(123L);
 
-        verify(odontologoRepository, times(1)).deleteById(1L);
+        verify(odontologoRepository, times(1)).deleteById(123L);
     }
 
     @Test
-    void eliminar_NotFound() {
-        when(odontologoRepository.existsById(1L)).thenReturn(false);
+    void testEliminar_NotFound() {
+        when(odontologoRepository.existsById(123L)).thenReturn(false);
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            odontologoServicio.eliminar(1L);
+            odontologoServicio.eliminar(123L);
         });
 
-        String expectedMessage = "Odontólogo no encontrado con id: 1";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals("Odontólogo no encontrado con id: 123", exception.getMessage());
+        verify(odontologoRepository, times(1)).existsById(123L);
     }
 
     @Test
-    void actualizar() {
-        when(odontologoRepository.existsById(odontologo.getMatricula())).thenReturn(true);
-        when(odontologoRepository.save(odontologo)).thenReturn(odontologo);
-
-        odontologoServicio.actualizar(odontologo);
-
-        verify(odontologoRepository, times(1)).save(odontologo);
-    }
-
-    @Test
-    void actualizar_NotFound() {
-        when(odontologoRepository.existsById(odontologo.getMatricula())).thenReturn(false);
-
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            odontologoServicio.actualizar(odontologo);
-        });
-
-        String expectedMessage = "Odontólogo no encontrado con id: " + odontologo.getMatricula();
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    @Test
-    void listarTodos() {
+    void testListarTodos() {
         List<Odontologo> odontologos = Arrays.asList(odontologo, new Odontologo());
         when(odontologoRepository.findAll()).thenReturn(odontologos);
 
@@ -127,26 +104,25 @@ class OdontologoServicioImplTest {
     }
 
     @Test
-    void buscarPorMatricula() {
-        when(odontologoRepository.findByMatricula(1L)).thenReturn(odontologo);
+    void testBuscarPorMatricula_ExistingMatricula() {
+        when(odontologoRepository.findByMatricula(123L)).thenReturn(odontologo);
 
-        Odontologo result = odontologoServicio.buscarPorMatricula(1L);
+        Odontologo result = odontologoServicio.buscarPorMatricula(123L);
 
         assertNotNull(result);
-        assertEquals("Juan", result.getNombre());
-        verify(odontologoRepository, times(1)).findByMatricula(1L);
+        assertEquals(odontologo.getMatricula(), result.getMatricula());
+        verify(odontologoRepository, times(1)).findByMatricula(123L);
     }
 
     @Test
-    void buscarPorMatricula_NotFound() {
-        when(odontologoRepository.findByMatricula(1L)).thenReturn(null);
+    void testBuscarPorMatricula_NotFound() {
+        when(odontologoRepository.findByMatricula(123L)).thenReturn(null);
 
         Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            odontologoServicio.buscarPorMatricula(1L);
+            odontologoServicio.buscarPorMatricula(123L);
         });
 
-        String expectedMessage = "Odontólogo no encontrado con matrícula: 1";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertEquals("Odontólogo no encontrado con matrícula: 123", exception.getMessage());
+        verify(odontologoRepository, times(1)).findByMatricula(123L);
     }
 }

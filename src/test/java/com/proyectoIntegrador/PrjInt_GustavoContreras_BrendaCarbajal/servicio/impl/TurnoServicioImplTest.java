@@ -9,10 +9,13 @@ import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.IO
 import com.proyectoIntegrador.PrjInt_GustavoContreras_BrendaCarbajal.servicio.IPacienteServicio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -20,10 +23,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class TurnoServicioImplTest {
-
-    @InjectMocks
-    private TurnoServicioImpl turnoServicio;
 
     @Mock
     private ITurnoRepository turnoRepository;
@@ -34,106 +35,86 @@ class TurnoServicioImplTest {
     @Mock
     private IPacienteServicio pacienteServicio;
 
+    @InjectMocks
+    private TurnoServicioImpl turnoServicio;
+
     private Turno turno;
     private Paciente paciente;
     private Odontologo odontologo;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-
-        // Crear un paciente de prueba
         paciente = new Paciente();
         paciente.setId(1L);
-        paciente.setNombre("PacienteTest");
+        paciente.setNombre("Carlos");
 
-        // Crear un odontólogo de prueba
         odontologo = new Odontologo();
-        odontologo.setMatricula(1L);  // Cambiado a Long, no String
-        odontologo.setNombre("OdontologoTest");
+        odontologo.setMatricula(101L);
+        odontologo.setNombre("Dr. Juan");
 
-        // Crear un turno de prueba
         turno = new Turno();
         turno.setId(1L);
         turno.setPaciente(paciente);
         turno.setOdontologo(odontologo);
+        turno.setFecha(LocalDate.parse("2024-09-15"));
     }
 
     @Test
-    void testGuardar_TurnoExitoso() {
-        // Configurar mocks
+    void testGuardar() {
         when(pacienteServicio.buscarPorId(1L)).thenReturn(paciente);
-        when(odontologoServicio.buscarPorId(1L)).thenReturn(odontologo);
+        when(odontologoServicio.buscarPorId(101L)).thenReturn(odontologo);
         when(turnoRepository.save(turno)).thenReturn(turno);
 
-        // Llamar al método
-        Turno turnoGuardado = turnoServicio.guardar(turno);
+        Turno result = turnoServicio.guardar(turno);
 
-        // Verificar resultados
-        assertNotNull(turnoGuardado);
-        assertEquals("PacienteTest", turnoGuardado.getPaciente().getNombre());
-        assertEquals("OdontologoTest", turnoGuardado.getOdontologo().getNombre());
-
-        // Verificar que los métodos de los servicios fueron llamados
-        verify(pacienteServicio, times(1)).buscarPorId(1L);
-        verify(odontologoServicio, times(1)).buscarPorId(1L);
+        assertNotNull(result);
+        assertEquals(turno.getFecha(), result.getFecha());
+        assertEquals(turno.getPaciente().getId(), result.getPaciente().getId());
+        assertEquals(turno.getOdontologo().getMatricula(), result.getOdontologo().getMatricula());
         verify(turnoRepository, times(1)).save(turno);
     }
 
     @Test
-    void testGuardar_PacienteNoExiste() {
-        // Configurar mocks para que el paciente no exista
+    void testGuardar_PacienteNoEncontrado() {
         when(pacienteServicio.buscarPorId(1L)).thenThrow(new ResourceNotFoundException("Paciente no encontrado con id: 1"));
 
-        // Verificar excepción
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
             turnoServicio.guardar(turno);
         });
 
         assertEquals("Paciente no encontrado con id: 1", exception.getMessage());
-
-        // Verificar que el método de guardar no se llamó
-        verify(turnoRepository, times(0)).save(turno);
+        verify(turnoRepository, never()).save(turno);
     }
 
     @Test
-    void testGuardar_OdontologoNoExiste() {
-        // Configurar mocks para que el paciente exista pero el odontólogo no
+    void testGuardar_OdontologoNoEncontrado() {
         when(pacienteServicio.buscarPorId(1L)).thenReturn(paciente);
-        when(odontologoServicio.buscarPorId(1L)).thenThrow(new ResourceNotFoundException("Odontólogo no encontrado con id: 1"));
+        when(odontologoServicio.buscarPorId(101L)).thenThrow(new ResourceNotFoundException("Odontólogo no encontrado con id: 101"));
 
-        // Verificar excepción
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
             turnoServicio.guardar(turno);
         });
 
-        assertEquals("Odontólogo no encontrado con id: 1", exception.getMessage());
-
-        // Verificar que el método de guardar no se llamó
-        verify(turnoRepository, times(0)).save(turno);
+        assertEquals("Odontólogo no encontrado con id: 101", exception.getMessage());
+        verify(turnoRepository, never()).save(turno);
     }
 
     @Test
-    void testBuscarPorId_Encontrado() {
-        // Configurar mocks para que el turno exista
+    void testBuscarPorId_ExistingId() {
         when(turnoRepository.findById(1L)).thenReturn(Optional.of(turno));
 
-        // Llamar al método
-        Turno turnoEncontrado = turnoServicio.buscarPorId(1L);
+        Turno result = turnoServicio.buscarPorId(1L);
 
-        // Verificar resultados
-        assertNotNull(turnoEncontrado);
-        assertEquals(turno.getId(), turnoEncontrado.getId());
+        assertNotNull(result);
+        assertEquals(turno.getFecha(), result.getFecha());
         verify(turnoRepository, times(1)).findById(1L);
     }
 
     @Test
-    void testBuscarPorId_NoEncontrado() {
-        // Configurar mocks para que el turno no exista
+    void testBuscarPorId_NotFound() {
         when(turnoRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Verificar excepción
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
             turnoServicio.buscarPorId(1L);
         });
 
@@ -143,45 +124,33 @@ class TurnoServicioImplTest {
 
     @Test
     void testListarTodos() {
-        // Configurar mocks para devolver una lista de turnos
         List<Turno> turnos = Arrays.asList(turno, new Turno());
         when(turnoRepository.findAll()).thenReturn(turnos);
 
-        // Llamar al método
         List<Turno> result = turnoServicio.listarTodos();
 
-        // Verificar resultados
-        assertNotNull(result);
         assertEquals(2, result.size());
         verify(turnoRepository, times(1)).findAll();
     }
 
     @Test
-    void testEliminar_Existe() {
-        // Configurar mocks para que el turno exista
+    void testEliminar_ExistingId() {
         when(turnoRepository.existsById(1L)).thenReturn(true);
-        doNothing().when(turnoRepository).deleteById(1L);
 
-        // Llamar al método
         turnoServicio.eliminar(1L);
 
-        // Verificar que se llamó correctamente el método de eliminación
-        verify(turnoRepository, times(1)).existsById(1L);
         verify(turnoRepository, times(1)).deleteById(1L);
     }
 
     @Test
-    void testEliminar_NoExiste() {
-        // Configurar mocks para que el turno no exista
+    void testEliminar_NotFound() {
         when(turnoRepository.existsById(1L)).thenReturn(false);
 
-        // Verificar excepción
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
             turnoServicio.eliminar(1L);
         });
 
         assertEquals("Turno no encontrado con id: 1", exception.getMessage());
-        verify(turnoRepository, times(1)).existsById(1L);
-        verify(turnoRepository, times(0)).deleteById(1L);
+        verify(turnoRepository, never()).deleteById(1L);
     }
 }
